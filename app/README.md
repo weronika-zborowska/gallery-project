@@ -6,8 +6,8 @@ Projekt zaliczeniowy wykonany w Symfony. Aplikacja umożliwia przeglądanie gale
 #Dane logowania:
 Administrator:
 
--e-mail:badmin@example.com
--hasło: admin123
+e-mail:admin@example.com
+hasło: admin123
 
 #Uruchomienie projektu:
 
