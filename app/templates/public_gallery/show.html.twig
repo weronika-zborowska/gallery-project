@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h1>{{ gallery.title }}</h1>
+
+<p>{{ gallery.description }}</p>
+
+<h2>Zdjęcia</h2>
+
+{% for photo in photos %}
+    <div style="margin-bottom: 20px;">
+        <h3>{{ photo.title }}</h3>
+
+        <img
+                src="{{ asset('uploads/photos/' ~ photo.filename) }}"
+                alt="{{ photo.title }}"
+                style="max-width: 300px;"
+        >
+    </div>
+{% else %}
+    <p>Brak zdjęć w tej galerii.</p>
+{% endfor %}
+
+<a href="{{ path('app_home') }}">Wróć do listy galerii</a>
+
+{% endblock %}

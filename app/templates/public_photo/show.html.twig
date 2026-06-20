@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h1>{{ photo.title }}</h1>
+
+    {%  if photo.description  %}
+        <p>{{ photo.description }}</p>
+    {% endif %}
+
+<img src="{{ asset('uploads/photos/' ~ photo.filename) }}" alt="{{ photo.title }}" style="max-width: 500px;">
+
+<h2>Komentarze</h2>
+
+{% for comment in comments %}
+    <div style="margin-bottom: 15px;">
+        <strong>{{ comment.nickname }}</strong>
+        <small>{{ comment.createdAt|date('Y-m-d H:i') }}</small>
+        <p>{{ comment.content }}</p>
+    </div>
+{% else %}
+    <p>Brak komentarzy.</p>
+{% endfor %}
+
+<h2>Dodaj komentarz</h2>
+
+{{ form_start(commentForm) }}
+    {{ form_row(commentForm.email) }}
+    {{ form_row(commentForm.nickname) }}
+    {{ form_row(commentForm.content) }}
+
+<button type="submit">Dodaj komentarz</button>
+{{ form_end(commentForm) }}
+
+<a href="{{ path('app_public_photo_index') }}">Wróć do zdjęć</a>
+
+{% endblock %}
