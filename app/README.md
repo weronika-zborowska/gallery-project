@@ -1,6 +1,4 @@
-
-
-#Galeria zdjęć
+# Galeria zdjęć
 Projekt zaliczeniowy wykonany w Symfony. Aplikacja umożliwia przeglądanie galerii zdjęć, dodawanie komentarzy przez niezalogowanych użytkowników oraz zarządzanie treściami przez administratora.
 
 #Dane logowania:
