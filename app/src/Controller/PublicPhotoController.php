@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Public photo controller.
  */
@@ -6,6 +7,7 @@
 namespace App\Controller;
 
 use App\Repository\PhotoRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,24 +21,23 @@ class PublicPhotoController extends AbstractController
     /**
      * Displays newest photos with pagination.
      *
-     * @param Request         $request         Current HTTP request.
-     * @param PhotoRepository $photoRepository Photo repository.
+     * @param Request            $request         current HTTP request
+     * @param PhotoRepository    $photoRepository photo repository
+     * @param PaginatorInterface $paginator       paginator
      *
-     * @return Response HTTP response.
+     * @return Response HTTP response
      */
     #[Route('/photos', name: 'app_public_photo_index')]
-    public function index(Request $request, PhotoRepository $photoRepository): Response
+    public function index(Request $request, PhotoRepository $photoRepository, PaginatorInterface $paginator): Response
     {
-        $page = max(1, $request->query->getInt('page', 1));
-        $limit = 10;
-        $offset = ($page - 1) * $limit;
-        $totalPhotos = $photoRepository->countAll();
-        $totalPages = (int) ceil($totalPhotos / $limit);
+        $pagination = $paginator->paginate(
+            $photoRepository->getLatestQueryBuilder(),
+            $request->query->getInt('page', 1),
+            10
+        );
 
         return $this->render('public_photo/index.html.twig', [
-            'photos' => $photoRepository->findLatestPaginated($limit, $offset),
-            'page' => $page,
-            'totalPages' => $totalPages,
+            'photos' => $pagination,
         ]);
     }
 }

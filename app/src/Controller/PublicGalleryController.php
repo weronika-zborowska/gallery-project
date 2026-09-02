@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Public gallery controller.
  */
@@ -26,9 +27,9 @@ class PublicGalleryController extends AbstractController
     /**
      * Displays public gallery list.
      *
-     * @param GalleryRepository $galleryRepository Gallery repository.
+     * @param GalleryRepository $galleryRepository gallery repository
      *
-     * @return Response HTTP response.
+     * @return Response HTTP response
      */
     #[Route('/', name: 'app_home')]
     public function index(GalleryRepository $galleryRepository): Response
@@ -41,12 +42,12 @@ class PublicGalleryController extends AbstractController
     /**
      * Displays a photo with comments and handles comment creation.
      *
-     * @param Photo                  $photo             Photo entity.
-     * @param Request                $request           Current HTTP request.
-     * @param CommentRepository      $commentRepository Comment repository.
-     * @param EntityManagerInterface $entityManager     Entity manager.
+     * @param Photo                  $photo             photo entity
+     * @param Request                $request           current HTTP request
+     * @param CommentRepository      $commentRepository comment repository
+     * @param EntityManagerInterface $entityManager     entity manager
      *
-     * @return Response HTTP response.
+     * @return Response HTTP response
      */
     #[Route('/photos/{id}', name: 'app_public_photo_show', methods: ['GET', 'POST'])]
     public function showPhoto(Photo $photo, Request $request, CommentRepository $commentRepository, EntityManagerInterface $entityManager): Response
@@ -82,10 +83,10 @@ class PublicGalleryController extends AbstractController
     /**
      * Displays selected gallery with assigned photos.
      *
-     * @param Gallery         $gallery         Gallery entity.
-     * @param PhotoRepository $photoRepository Photo repository.
+     * @param Gallery         $gallery         gallery entity
+     * @param PhotoRepository $photoRepository photo repository
      *
-     * @return Response HTTP response.
+     * @return Response HTTP response
      */
     #[Route('/galleries/{id}', name: 'app_public_gallery_show')]
     public function showGallery(Gallery $gallery, PhotoRepository $photoRepository): Response

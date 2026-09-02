@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Test file.
+ */
+
 namespace App\Tests\Controller;
 
 use App\Entity\Gallery;
@@ -7,8 +11,20 @@ use App\Entity\Photo;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+/**
+ * Tests public gallery details.
+ */
+/**
+ * Tests public gallery details.
+ */
 final class PublicGalleryShowTest extends WebTestCase
 {
+    /**
+     * Tests displaying a photo assigned to a gallery.
+     */
+    /**
+     * Tests displaying a photo assigned to a gallery.
+     */
     public function testGalleryShowDisplaysAssignedPhoto(): void
     {
         $client = static::createClient();

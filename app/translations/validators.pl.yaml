@@ -1,0 +1,5 @@
+'Nazwa galerii nie może być pusta.': 'Nazwa galerii nie może być pusta.'
+'Nazwa galerii musi mieć co najmniej {{ limit }} znaki.': 'Nazwa galerii musi mieć co najmniej {{ limit }} znaki.'
+'Nazwa galerii może mieć maksymalnie {{ limit }} znaków.': 'Nazwa galerii może mieć maksymalnie {{ limit }} znaków.'
+'Możesz przesłać tylko plik graficzny JPG, PNG lub WEBP.': 'Możesz przesłać tylko plik graficzny JPG, PNG lub WEBP.'
+'Plik jest zbyt duży. Maksymalny rozmiar to 5 MB.': 'Plik jest zbyt duży. Maksymalny rozmiar to 5 MB.'

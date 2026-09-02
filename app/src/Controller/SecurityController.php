@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Security controller.
  */
@@ -18,9 +19,9 @@ class SecurityController extends AbstractController
     /**
      * Displays login form.
      *
-     * @param AuthenticationUtils $authenticationUtils Authentication utilities.
+     * @param AuthenticationUtils $authenticationUtils authentication utilities
      *
-     * @return Response HTTP response.
+     * @return Response HTTP response
      */
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
@@ -36,14 +37,10 @@ class SecurityController extends AbstractController
 
     /**
      * Handles user logout.
-     *
-     * @return void
      */
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
     {
-        throw new \LogicException(
-            'This method can be blank - it will be intercepted by the logout key on your firewall.'
-        );
+        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 }

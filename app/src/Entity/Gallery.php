@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Gallery entity.
  */
@@ -21,11 +22,15 @@ class Gallery
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Assert\NotBlank]
-    #[Assert\Length(min: 3, max: 255)]
+    #[Assert\NotBlank(message: 'Nazwa galerii nie może być pusta.')]
+    #[Assert\Length(
+        min: 3,
+        max: 255,
+        minMessage: 'Nazwa galerii musi mieć co najmniej {{ limit }} znaki.',
+        maxMessage: 'Nazwa galerii może mieć maksymalnie {{ limit }} znaków.'
+    )]
     #[ORM\Column(length: 255)]
     private ?string $title = null;
-
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
@@ -42,7 +47,7 @@ class Gallery
     /**
      * Returns gallery identifier.
      *
-     * @return int|null Gallery identifier.
+     * @return int|null gallery identifier
      */
     public function getId(): ?int
     {
@@ -52,7 +57,7 @@ class Gallery
     /**
      * Returns gallery title.
      *
-     * @return string|null Gallery title.
+     * @return string|null gallery title
      */
     public function getTitle(): ?string
     {
@@ -62,9 +67,9 @@ class Gallery
     /**
      * Sets gallery title.
      *
-     * @param string $title Gallery title.
+     * @param string $title gallery title
      *
-     * @return static Current object.
+     * @return static current object
      */
     public function setTitle(string $title): static
     {
@@ -76,7 +81,7 @@ class Gallery
     /**
      * Returns gallery description.
      *
-     * @return string|null Gallery description.
+     * @return string|null gallery description
      */
     public function getDescription(): ?string
     {
@@ -86,9 +91,9 @@ class Gallery
     /**
      * Sets gallery description.
      *
-     * @param string|null $description Gallery description.
+     * @param string|null $description gallery description
      *
-     * @return static Current object.
+     * @return static current object
      */
     public function setDescription(?string $description): static
     {
@@ -100,7 +105,7 @@ class Gallery
     /**
      * Returns creation date.
      *
-     * @return \DateTimeImmutable|null Creation date.
+     * @return \DateTimeImmutable|null creation date
      */
     public function getCreatedAt(): ?\DateTimeImmutable
     {
@@ -110,9 +115,9 @@ class Gallery
     /**
      * Sets creation date.
      *
-     * @param \DateTimeImmutable $createdAt Creation date.
+     * @param \DateTimeImmutable $createdAt creation date
      *
-     * @return static Current object.
+     * @return static current object
      */
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
@@ -124,7 +129,7 @@ class Gallery
     /**
      * Returns gallery title as string.
      *
-     * @return string Gallery title.
+     * @return string gallery title
      */
     public function __toString(): string
     {

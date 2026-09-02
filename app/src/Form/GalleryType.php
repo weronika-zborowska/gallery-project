@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Gallery form type.
  */
@@ -7,6 +8,7 @@ namespace App\Form;
 
 use App\Entity\Gallery;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,13 +20,15 @@ class GalleryType extends AbstractType
     /**
      * Builds the gallery form.
      *
-     * @param FormBuilderInterface $builder Form builder.
-     * @param array<string, mixed> $options Form options.
+     * @param FormBuilderInterface $builder form builder
+     * @param array<string, mixed> $options form options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
+            ->add('title', TextType::class, [
+                'empty_data' => '',
+            ])
             ->add('description')
             ->add('createdAt', null, [
                 'widget' => 'single_text',
@@ -34,7 +38,7 @@ class GalleryType extends AbstractType
     /**
      * Configures form options.
      *
-     * @param OptionsResolver $resolver Options resolver.
+     * @param OptionsResolver $resolver options resolver
      */
     public function configureOptions(OptionsResolver $resolver): void
     {

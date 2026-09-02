@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Account controller.
  */
@@ -25,7 +26,7 @@ final class AccountController extends AbstractController
     /**
      * Displays account dashboard.
      *
-     * @return Response HTTP response.
+     * @return Response HTTP response
      */
     #[Route('/account', name: 'app_account')]
     public function index(): Response
@@ -36,10 +37,10 @@ final class AccountController extends AbstractController
     /**
      * Displays and processes account edit form.
      *
-     * @param Request                $request       Current request.
-     * @param EntityManagerInterface $entityManager Entity manager.
+     * @param Request                $request       current request
+     * @param EntityManagerInterface $entityManager entity manager
      *
-     * @return Response HTTP response.
+     * @return Response HTTP response
      */
     #[Route('/account/edit', name: 'app_account_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, EntityManagerInterface $entityManager): Response
@@ -66,11 +67,11 @@ final class AccountController extends AbstractController
     /**
      * Displays and processes password change form.
      *
-     * @param Request                     $request        Current request.
-     * @param EntityManagerInterface      $entityManager  Entity manager.
-     * @param UserPasswordHasherInterface $passwordHasher Password hasher.
+     * @param Request                     $request        current request
+     * @param EntityManagerInterface      $entityManager  entity manager
+     * @param UserPasswordHasherInterface $passwordHasher password hasher
      *
-     * @return Response HTTP response.
+     * @return Response HTTP response
      */
     #[Route('/account/password', name: 'app_account_password', methods: ['GET', 'POST'])]
     public function changePassword(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
@@ -82,6 +83,16 @@ final class AccountController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $currentPassword = $form->get('currentPassword')->getData();
+
+            if (!$passwordHasher->isPasswordValid($user, $currentPassword)) {
+                $this->addFlash('error', 'Aktualne hasło jest nieprawidłowe.');
+
+                return $this->render('account/change_password.html.twig', [
+                    'form' => $form,
+                ]);
+            }
+
             $plainPassword = $form->get('plainPassword')->getData();
 
             $user->setPassword(

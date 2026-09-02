@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Gallery repository.
+ */
+
 namespace App\Repository;
 
 use App\Entity\Gallery;
@@ -14,7 +18,7 @@ class GalleryRepository extends ServiceEntityRepository
     /**
      * Constructor.
      *
-     * @param ManagerRegistry $registry Doctrine registry.
+     * @param ManagerRegistry $registry doctrine registry
      */
     public function __construct(ManagerRegistry $registry)
     {

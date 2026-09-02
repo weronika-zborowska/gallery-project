@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Photo form type.
  */
@@ -12,6 +13,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 /**
  * Form used for managing photos.
@@ -21,8 +23,8 @@ class PhotoType extends AbstractType
     /**
      * Builds the photo form.
      *
-     * @param FormBuilderInterface $builder Form builder.
-     * @param array<string, mixed> $options Form options.
+     * @param FormBuilderInterface $builder form builder
+     * @param array<string, mixed> $options form options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -32,6 +34,18 @@ class PhotoType extends AbstractType
                 'label' => 'Zdjęcie',
                 'mapped' => false,
                 'required' => false,
+                'constraints' => [
+                    new File(
+                        maxSize: '5M',
+                        mimeTypes: [
+                            'image/jpeg',
+                            'image/png',
+                            'image/webp',
+                        ],
+                        mimeTypesMessage: 'Możesz przesłać tylko plik graficzny JPG, PNG lub WEBP.',
+                        maxSizeMessage: 'Plik jest zbyt duży. Maksymalny rozmiar to 5 MB.'
+                    ),
+                ],
             ])
             ->add('title')
             ->add('createdAt', null, [
@@ -46,7 +60,7 @@ class PhotoType extends AbstractType
     /**
      * Configures form options.
      *
-     * @param OptionsResolver $resolver Options resolver.
+     * @param OptionsResolver $resolver options resolver
      */
     public function configureOptions(OptionsResolver $resolver): void
     {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Gallery controller.
  */
@@ -25,9 +26,9 @@ final class GalleryController extends AbstractController
     /**
      * Displays gallery list.
      *
-     * @param GalleryRepository $galleryRepository Gallery repository.
+     * @param GalleryRepository $galleryRepository gallery repository
      *
-     * @return Response HTTP response.
+     * @return Response HTTP response
      */
     #[Route(name: 'app_gallery_index', methods: ['GET'])]
     public function index(GalleryRepository $galleryRepository): Response
@@ -40,23 +41,38 @@ final class GalleryController extends AbstractController
     /**
      * Creates a new gallery.
      *
-     * @param Request                $request       Current request.
-     * @param EntityManagerInterface $entityManager Entity manager.
+     * @param Request                $request       current request
+     * @param EntityManagerInterface $entityManager entity manager
      *
-     * @return Response HTTP response.
+     * @return Response HTTP response
      */
     #[Route('/new', name: 'app_gallery_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $gallery = new Gallery();
-        $form = $this->createForm(GalleryType::class, $gallery);
+        $form = $this->createForm(GalleryType::class, $gallery, [
+            'method' => 'PUT',
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($gallery);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_gallery_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Galeria została dodana.');
+
+            return $this->redirectToRoute(
+                'app_gallery_index',
+                [],
+                Response::HTTP_SEE_OTHER
+            );
+        }
+
+        if ($form->isSubmitted()) {
+            $this->addFlash(
+                'error',
+                'Nie udało się dodać galerii. Sprawdź poprawność danych.'
+            );
         }
 
         return $this->render('gallery/new.html.twig', [
@@ -68,9 +84,9 @@ final class GalleryController extends AbstractController
     /**
      * Displays gallery details.
      *
-     * @param Gallery $gallery Gallery entity.
+     * @param Gallery $gallery gallery entity
      *
-     * @return Response HTTP response.
+     * @return Response HTTP response
      */
     #[Route('/{id}', name: 'app_gallery_show', methods: ['GET'])]
     public function show(Gallery $gallery): Response
@@ -83,13 +99,13 @@ final class GalleryController extends AbstractController
     /**
      * Edits an existing gallery.
      *
-     * @param Request                $request       Current request.
-     * @param Gallery                $gallery       Gallery entity.
-     * @param EntityManagerInterface $entityManager Entity manager.
+     * @param Request                $request       current request
+     * @param Gallery                $gallery       gallery entity
+     * @param EntityManagerInterface $entityManager entity manager
      *
-     * @return Response HTTP response.
+     * @return Response HTTP response
      */
-    #[Route('/{id}/edit', name: 'app_gallery_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_gallery_edit', methods: ['GET', 'PUT'])]
     public function edit(Request $request, Gallery $gallery, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(GalleryType::class, $gallery);
@@ -98,7 +114,20 @@ final class GalleryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_gallery_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Galeria została zaktualizowana.');
+
+            return $this->redirectToRoute(
+                'app_gallery_index',
+                [],
+                Response::HTTP_SEE_OTHER
+            );
+        }
+
+        if ($form->isSubmitted()) {
+            $this->addFlash(
+                'error',
+                'Nie udało się zaktualizować galerii. Sprawdź poprawność danych.'
+            );
         }
 
         return $this->render('gallery/edit.html.twig', [
@@ -110,20 +139,31 @@ final class GalleryController extends AbstractController
     /**
      * Deletes a gallery.
      *
-     * @param Request                $request       Current request.
-     * @param Gallery                $gallery       Gallery entity.
-     * @param EntityManagerInterface $entityManager Entity manager.
+     * @param Request                $request       current request
+     * @param Gallery                $gallery       gallery entity
+     * @param EntityManagerInterface $entityManager entity manager
      *
-     * @return Response HTTP response.
+     * @return Response HTTP response
      */
-    #[Route('/{id}', name: 'app_gallery_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_gallery_delete', methods: ['DELETE'])]
     public function delete(Request $request, Gallery $gallery, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$gallery->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid(
+            'delete'.$gallery->getId(),
+            $request->getPayload()->getString('_token')
+        )) {
             $entityManager->remove($gallery);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Galeria została usunięta.');
+        } else {
+            $this->addFlash('error', 'Nie udało się usunąć galerii.');
         }
 
-        return $this->redirectToRoute('app_gallery_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute(
+            'app_gallery_index',
+            [],
+            Response::HTTP_SEE_OTHER
+        );
     }
 }

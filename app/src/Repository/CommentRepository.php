@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Comment repository.
+ */
+
 namespace App\Repository;
 
 use App\Entity\Comment;
@@ -14,7 +18,7 @@ class CommentRepository extends ServiceEntityRepository
     /**
      * Constructor.
      *
-     * @param ManagerRegistry $registry Doctrine registry.
+     * @param ManagerRegistry $registry doctrine registry
      */
     public function __construct(ManagerRegistry $registry)
     {

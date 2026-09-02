@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Comment form type.
  */
@@ -18,8 +19,8 @@ class CommentType extends AbstractType
     /**
      * Builds the comment form.
      *
-     * @param FormBuilderInterface $builder Form builder.
-     * @param array<string, mixed> $options Form options.
+     * @param FormBuilderInterface $builder form builder
+     * @param array<string, mixed> $options form options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -32,7 +33,7 @@ class CommentType extends AbstractType
     /**
      * Configures form options.
      *
-     * @param OptionsResolver $resolver Options resolver.
+     * @param OptionsResolver $resolver options resolver
      */
     public function configureOptions(OptionsResolver $resolver): void
     {

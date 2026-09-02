@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Photo entity.
  */
@@ -39,7 +40,7 @@ class Photo
     /**
      * Returns photo identifier.
      *
-     * @return int|null Photo identifier.
+     * @return int|null photo identifier
      */
     public function getId(): ?int
     {
@@ -49,7 +50,7 @@ class Photo
     /**
      * Returns filename.
      *
-     * @return string|null Filename.
+     * @return string|null filename
      */
     public function getFilename(): ?string
     {
@@ -59,9 +60,9 @@ class Photo
     /**
      * Sets filename.
      *
-     * @param string $filename Filename.
+     * @param string $filename filename
      *
-     * @return static Current object.
+     * @return static current object
      */
     public function setFilename(string $filename): static
     {
@@ -73,7 +74,7 @@ class Photo
     /**
      * Returns title.
      *
-     * @return string|null Photo title.
+     * @return string|null photo title
      */
     public function getTitle(): ?string
     {
@@ -83,9 +84,9 @@ class Photo
     /**
      * Sets title.
      *
-     * @param string|null $title Photo title.
+     * @param string|null $title photo title
      *
-     * @return static Current object.
+     * @return static current object
      */
     public function setTitle(?string $title): static
     {
@@ -97,7 +98,7 @@ class Photo
     /**
      * Returns creation date.
      *
-     * @return \DateTimeImmutable|null Creation date.
+     * @return \DateTimeImmutable|null creation date
      */
     public function getCreatedAt(): ?\DateTimeImmutable
     {
@@ -107,9 +108,9 @@ class Photo
     /**
      * Sets creation date.
      *
-     * @param \DateTimeImmutable $createdAt Creation date.
+     * @param \DateTimeImmutable $createdAt creation date
      *
-     * @return static Current object.
+     * @return static current object
      */
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
@@ -121,7 +122,7 @@ class Photo
     /**
      * Returns gallery.
      *
-     * @return Gallery|null Gallery entity.
+     * @return Gallery|null gallery entity
      */
     public function getGallery(): ?Gallery
     {
@@ -131,9 +132,9 @@ class Photo
     /**
      * Sets gallery.
      *
-     * @param Gallery|null $gallery Gallery entity.
+     * @param Gallery|null $gallery gallery entity
      *
-     * @return static Current object.
+     * @return static current object
      */
     public function setGallery(?Gallery $gallery): static
     {
@@ -145,7 +146,7 @@ class Photo
     /**
      * Returns description.
      *
-     * @return string|null Description.
+     * @return string|null description
      */
     public function getDescription(): ?string
     {
@@ -155,9 +156,9 @@ class Photo
     /**
      * Sets description.
      *
-     * @param string|null $description Description.
+     * @param string|null $description description
      *
-     * @return static Current object.
+     * @return static current object
      */
     public function setDescription(?string $description): static
     {

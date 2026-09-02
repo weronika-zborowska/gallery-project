@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Comment controller.
  */
@@ -25,9 +26,9 @@ final class CommentController extends AbstractController
     /**
      * Displays comment list.
      *
-     * @param CommentRepository $commentRepository Comment repository.
+     * @param CommentRepository $commentRepository comment repository
      *
-     * @return Response HTTP response.
+     * @return Response HTTP response
      */
     #[Route(name: 'app_comment_index', methods: ['GET'])]
     public function index(CommentRepository $commentRepository): Response
@@ -40,10 +41,10 @@ final class CommentController extends AbstractController
     /**
      * Creates a new comment.
      *
-     * @param Request                $request       Current request.
-     * @param EntityManagerInterface $entityManager Entity manager.
+     * @param Request                $request       current request
+     * @param EntityManagerInterface $entityManager entity manager
      *
-     * @return Response HTTP response.
+     * @return Response HTTP response
      */
     #[Route('/new', name: 'app_comment_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -72,9 +73,9 @@ final class CommentController extends AbstractController
     /**
      * Displays comment details.
      *
-     * @param Comment $comment Comment entity.
+     * @param Comment $comment comment entity
      *
-     * @return Response HTTP response.
+     * @return Response HTTP response
      */
     #[Route('/{id}', name: 'app_comment_show', methods: ['GET'])]
     public function show(Comment $comment): Response
@@ -87,22 +88,32 @@ final class CommentController extends AbstractController
     /**
      * Edits an existing comment.
      *
-     * @param Request                $request       Current request.
-     * @param Comment                $comment       Comment entity.
-     * @param EntityManagerInterface $entityManager Entity manager.
+     * @param Request                $request       current request
+     * @param Comment                $comment       comment entity
+     * @param EntityManagerInterface $entityManager entity manager
      *
-     * @return Response HTTP response.
+     * @return Response HTTP response
      */
-    #[Route('/{id}/edit', name: 'app_comment_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_comment_edit', methods: ['GET', 'PUT'])]
     public function edit(Request $request, Comment $comment, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(CommentType::class, $comment);
+        $form = $this->createForm(CommentType::class, $comment, [
+            'method' => 'PUT',
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
+            $this->addFlash('success', 'Komentarz został zaktualizowany.');
 
             return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        if ($form->isSubmitted()) {
+            $this->addFlash(
+                'error',
+                'Nie udało się zaktualizować komentarza. Sprawdź poprawność danych.'
+            );
         }
 
         return $this->render('comment/edit.html.twig', [
@@ -114,18 +125,22 @@ final class CommentController extends AbstractController
     /**
      * Deletes a comment.
      *
-     * @param Request                $request       Current request.
-     * @param Comment                $comment       Comment entity.
-     * @param EntityManagerInterface $entityManager Entity manager.
+     * @param Request                $request       current request
+     * @param Comment                $comment       comment entity
+     * @param EntityManagerInterface $entityManager entity manager
      *
-     * @return Response HTTP response.
+     * @return Response HTTP response
      */
-    #[Route('/{id}', name: 'app_comment_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_comment_delete', methods: ['DELETE'])]
     public function delete(Request $request, Comment $comment, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$comment->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($comment);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Komentarz został usunięty.');
+        } else {
+            $this->addFlash('error', 'Nie udało się usunąć komentarza.');
         }
 
         return $this->redirectToRoute('app_comment_index', [], Response::HTTP_SEE_OTHER);

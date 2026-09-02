@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Create administrator command.
  */
@@ -25,8 +26,8 @@ class CreateAdminCommand extends Command
     /**
      * Constructor.
      *
-     * @param EntityManagerInterface      $entityManager  Entity manager.
-     * @param UserPasswordHasherInterface $passwordHasher Password hasher.
+     * @param EntityManagerInterface      $entityManager  entity manager
+     * @param UserPasswordHasherInterface $passwordHasher password hasher
      */
     public function __construct(private readonly EntityManagerInterface $entityManager, private readonly UserPasswordHasherInterface $passwordHasher)
     {
@@ -36,10 +37,10 @@ class CreateAdminCommand extends Command
     /**
      * Executes the command.
      *
-     * @param InputInterface  $input  Console input.
-     * @param OutputInterface $output Console output.
+     * @param InputInterface  $input  console input
+     * @param OutputInterface $output console output
      *
-     * @return int Command status code.
+     * @return int command status code
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {

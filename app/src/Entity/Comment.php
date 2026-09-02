@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Comment entity.
  */
@@ -46,7 +47,7 @@ class Comment
     /**
      * Returns comment identifier.
      *
-     * @return int|null Comment identifier.
+     * @return int|null comment identifier
      */
     public function getId(): ?int
     {
@@ -56,7 +57,7 @@ class Comment
     /**
      * Returns author email.
      *
-     * @return string|null Author email.
+     * @return string|null author email
      */
     public function getEmail(): ?string
     {
@@ -66,9 +67,9 @@ class Comment
     /**
      * Sets author email.
      *
-     * @param string $email Author email.
+     * @param string $email author email
      *
-     * @return static Current object.
+     * @return static current object
      */
     public function setEmail(string $email): static
     {
@@ -80,7 +81,7 @@ class Comment
     /**
      * Returns author nickname.
      *
-     * @return string|null Author nickname.
+     * @return string|null author nickname
      */
     public function getNickname(): ?string
     {
@@ -90,9 +91,9 @@ class Comment
     /**
      * Sets author nickname.
      *
-     * @param string $nickname Author nickname.
+     * @param string $nickname author nickname
      *
-     * @return static Current object.
+     * @return static current object
      */
     public function setNickname(string $nickname): static
     {
@@ -104,7 +105,7 @@ class Comment
     /**
      * Returns comment content.
      *
-     * @return string|null Comment content.
+     * @return string|null comment content
      */
     public function getContent(): ?string
     {
@@ -114,9 +115,9 @@ class Comment
     /**
      * Sets comment content.
      *
-     * @param string $content Comment content.
+     * @param string $content comment content
      *
-     * @return static Current object.
+     * @return static current object
      */
     public function setContent(string $content): static
     {
@@ -128,7 +129,7 @@ class Comment
     /**
      * Returns creation date.
      *
-     * @return \DateTimeImmutable|null Creation date.
+     * @return \DateTimeImmutable|null creation date
      */
     public function getCreatedAt(): ?\DateTimeImmutable
     {
@@ -138,9 +139,9 @@ class Comment
     /**
      * Sets creation date.
      *
-     * @param \DateTimeImmutable $createdAt Creation date.
+     * @param \DateTimeImmutable $createdAt creation date
      *
-     * @return static Current object.
+     * @return static current object
      */
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
@@ -152,7 +153,7 @@ class Comment
     /**
      * Returns related photo.
      *
-     * @return Photo|null Related photo.
+     * @return Photo|null related photo
      */
     public function getPhoto(): ?Photo
     {
@@ -162,9 +163,9 @@ class Comment
     /**
      * Sets related photo.
      *
-     * @param Photo|null $photo Related photo.
+     * @param Photo|null $photo related photo
      *
-     * @return static Current object.
+     * @return static current object
      */
     public function setPhoto(?Photo $photo): static
     {

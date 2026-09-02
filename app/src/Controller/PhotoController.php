@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Photo controller.
  */
@@ -8,6 +9,7 @@ namespace App\Controller;
 use App\Entity\Photo;
 use App\Form\PhotoType;
 use App\Repository\PhotoRepository;
+use App\Service\PhotoService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,9 +27,9 @@ final class PhotoController extends AbstractController
     /**
      * Displays photo list.
      *
-     * @param PhotoRepository $photoRepository Photo repository.
+     * @param PhotoRepository $photoRepository photo repository
      *
-     * @return Response HTTP response.
+     * @return Response HTTP response
      */
     #[Route(name: 'app_photo_index', methods: ['GET'])]
     public function index(PhotoRepository $photoRepository): Response
@@ -40,13 +42,13 @@ final class PhotoController extends AbstractController
     /**
      * Creates a new photo.
      *
-     * @param Request                $request       Current request.
-     * @param EntityManagerInterface $entityManager Entity manager.
+     * @param Request      $request      current request
+     * @param PhotoService $photoService photo service
      *
-     * @return Response HTTP response.
+     * @return Response HTTP response
      */
     #[Route('/new', name: 'app_photo_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, PhotoService $photoService): Response
     {
         $photo = new Photo();
         $form = $this->createForm(PhotoType::class, $photo);
@@ -55,23 +57,15 @@ final class PhotoController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $imageFile = $form->get('imageFile')->getData();
 
-            if ($imageFile) {
-                $newFilename = uniqid().'.'.$imageFile->guessExtension();
+            $photoService->create($photo, $imageFile);
 
-                $imageFile->move(
-                    $this->getParameter('kernel.project_dir').'/public/uploads/photos',
-                    $newFilename
-                );
+            $this->addFlash('success', 'Zdjęcie zostało dodane.');
 
-                $photo->setFilename($newFilename);
-            }
-
-            $photo->setCreatedAt(new \DateTimeImmutable());
-
-            $entityManager->persist($photo);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_photo_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute(
+                'app_photo_index',
+                [],
+                Response::HTTP_SEE_OTHER
+            );
         }
 
         return $this->render('photo/new.html.twig', [
@@ -83,9 +77,9 @@ final class PhotoController extends AbstractController
     /**
      * Displays photo details.
      *
-     * @param Photo $photo Photo entity.
+     * @param Photo $photo photo entity
      *
-     * @return Response HTTP response.
+     * @return Response HTTP response
      */
     #[Route('/{id}', name: 'app_photo_show', methods: ['GET'])]
     public function show(Photo $photo): Response
@@ -98,22 +92,32 @@ final class PhotoController extends AbstractController
     /**
      * Edits an existing photo.
      *
-     * @param Request                $request       Current request.
-     * @param Photo                  $photo         Photo entity.
-     * @param EntityManagerInterface $entityManager Entity manager.
+     * @param Request      $request      current request
+     * @param Photo        $photo        photo entity
+     * @param PhotoService $photoService photo service
      *
-     * @return Response HTTP response.
+     * @return Response HTTP response
      */
-    #[Route('/{id}/edit', name: 'app_photo_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Photo $photo, EntityManagerInterface $entityManager): Response
+    #[Route('/{id}/edit', name: 'app_photo_edit', methods: ['GET', 'PUT'])]
+    public function edit(Request $request, Photo $photo, PhotoService $photoService): Response
     {
-        $form = $this->createForm(PhotoType::class, $photo);
+        $form = $this->createForm(PhotoType::class, $photo, [
+            'method' => 'PUT',
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $imageFile = $form->get('imageFile')->getData();
 
-            return $this->redirectToRoute('app_photo_index', [], Response::HTTP_SEE_OTHER);
+            $photoService->update($photo, $imageFile);
+
+            $this->addFlash('success', 'Zdjęcie zostało zaktualizowane.');
+
+            return $this->redirectToRoute(
+                'app_photo_index',
+                [],
+                Response::HTTP_SEE_OTHER
+            );
         }
 
         return $this->render('photo/edit.html.twig', [
@@ -125,20 +129,31 @@ final class PhotoController extends AbstractController
     /**
      * Deletes a photo.
      *
-     * @param Request                $request       Current request.
-     * @param Photo                  $photo         Photo entity.
-     * @param EntityManagerInterface $entityManager Entity manager.
+     * @param Request                $request       current request
+     * @param Photo                  $photo         photo entity
+     * @param EntityManagerInterface $entityManager entity manager
      *
-     * @return Response HTTP response.
+     * @return Response HTTP response
      */
-    #[Route('/{id}', name: 'app_photo_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_photo_delete', methods: ['DELETE'])]
     public function delete(Request $request, Photo $photo, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$photo->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid(
+            'delete'.$photo->getId(),
+            $request->getPayload()->getString('_token')
+        )) {
             $entityManager->remove($photo);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Zdjęcie zostało usunięte.');
+        } else {
+            $this->addFlash('error', 'Nie udało się usunąć zdjęcia.');
         }
 
-        return $this->redirectToRoute('app_photo_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute(
+            'app_photo_index',
+            [],
+            Response::HTTP_SEE_OTHER
+        );
     }
 }

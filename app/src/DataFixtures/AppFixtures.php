@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Application fixtures.
  */
@@ -21,7 +22,7 @@ class AppFixtures extends Fixture
     /**
      * Constructor.
      *
-     * @param UserPasswordHasherInterface $passwordHasher Password hasher.
+     * @param UserPasswordHasherInterface $passwordHasher password hasher
      */
     public function __construct(private readonly UserPasswordHasherInterface $passwordHasher)
     {
@@ -30,9 +31,7 @@ class AppFixtures extends Fixture
     /**
      * Loads sample data.
      *
-     * @param ObjectManager $manager Object manager.
-     *
-     * @return void
+     * @param ObjectManager $manager object manager
      */
     public function load(ObjectManager $manager): void
     {

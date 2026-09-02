@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Test file.
+ */
+
 namespace App\Tests\Controller;
 
 use App\Entity\Comment;
@@ -8,8 +12,20 @@ use App\Entity\Photo;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+/**
+ * Tests public photo comments.
+ */
+/**
+ * Tests public photo comments.
+ */
 final class PublicPhotoCommentTest extends WebTestCase
 {
+    /**
+     * Tests that an anonymous user can add a comment.
+     */
+    /**
+     * Tests that an anonymous user can add a comment.
+     */
     public function testAnonymousUserCanAddCommentToPhoto(): void
     {
         $client = static::createClient();

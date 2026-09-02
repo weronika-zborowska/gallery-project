@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Application authenticator.
  */
@@ -31,7 +32,7 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
     /**
      * Constructor.
      *
-     * @param UrlGeneratorInterface $urlGenerator URL generator.
+     * @param UrlGeneratorInterface $urlGenerator URL generator
      */
     public function __construct(private UrlGeneratorInterface $urlGenerator)
     {
@@ -40,9 +41,9 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
     /**
      * Authenticates user credentials.
      *
-     * @param Request $request Current request.
+     * @param Request $request current request
      *
-     * @return Passport Authentication passport.
+     * @return Passport authentication passport
      */
     public function authenticate(Request $request): Passport
     {
@@ -63,11 +64,11 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
     /**
      * Handles successful authentication.
      *
-     * @param Request        $request      Current request.
-     * @param TokenInterface $token        Security token.
-     * @param string         $firewallName Firewall name.
+     * @param Request        $request      current request
+     * @param TokenInterface $token        security token
+     * @param string         $firewallName firewall name
      *
-     * @return Response|null HTTP response.
+     * @return Response|null HTTP response
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
@@ -81,9 +82,9 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
     /**
      * Returns login URL.
      *
-     * @param Request $request Current request.
+     * @param Request $request current request
      *
-     * @return string Login URL.
+     * @return string login URL
      */
     protected function getLoginUrl(Request $request): string
     {

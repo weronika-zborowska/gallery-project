@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Change password form type.
  */
@@ -19,12 +20,17 @@ class ChangePasswordType extends AbstractType
     /**
      * Builds the change password form.
      *
-     * @param FormBuilderInterface $builder Form builder.
-     * @param array<string, mixed> $options Form options.
+     * @param FormBuilderInterface $builder form builder
+     * @param array<string, mixed> $options form options
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('currentPassword', PasswordType::class, [
+                'mapped' => false,
+                'required' => true,
+                'label' => 'Aktualne hasło',
+            ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'mapped' => false,
@@ -42,7 +48,7 @@ class ChangePasswordType extends AbstractType
     /**
      * Configures form options.
      *
-     * @param OptionsResolver $resolver Options resolver.
+     * @param OptionsResolver $resolver options resolver
      */
     public function configureOptions(OptionsResolver $resolver): void
     {

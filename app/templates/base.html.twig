@@ -36,6 +36,9 @@
                     Zarządzaj zdjęciami
                 </a>
 
+                <a class="btn btn-info me-2" href="{{ path('app_account') }}">
+                    Moje konto
+                </a>
 
                 <a class="btn btn-danger" href="{{ path('app_logout') }}">
                     Wyloguj
@@ -53,6 +56,12 @@
 
     {% for message in app.flashes('success') %}
         <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger">
             {{ message }}
         </div>
     {% endfor %}

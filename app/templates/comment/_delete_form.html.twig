@@ -1,6 +1,11 @@
-<form method="post" action="{{ path('app_comment_delete', {'id': comment.id}) }}" style="display:inline;" onsubmit="return confirm('Czy na pewno chcesz usunąć ten komentarz?');">
+<form method="post" action="{{ path('app_comment_delete', {'id': comment.id}) }}" style="display:inline;">
+    <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
-    <button type="submit" style="background:none; border:none; padding:0; color:#0d6efd; text-decoration:underline; cursor:pointer;">
+
+    <button
+            type="submit"
+            style="background:none; border:none; padding:0; color:#0d6efd; text-decoration:underline; cursor:pointer;"
+    >
         Usuń
     </button>
 </form>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * User entity.
  */
@@ -26,13 +27,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $email = null;
 
     /**
-     * @var list<string> The user roles.
+     * @var list<string> the user roles
      */
     #[ORM\Column]
     private array $roles = [];
 
     /**
-     * @var string|null The hashed password.
+     * @var string|null the hashed password
      */
     #[ORM\Column]
     private ?string $password = null;
@@ -40,7 +41,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Returns user identifier.
      *
-     * @return int|null User identifier.
+     * @return int|null user identifier
      */
     public function getId(): ?int
     {
@@ -50,7 +51,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Returns user email.
      *
-     * @return string|null User email.
+     * @return string|null user email
      */
     public function getEmail(): ?string
     {
@@ -60,9 +61,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Sets user email.
      *
-     * @param string $email User email.
+     * @param string $email user email
      *
-     * @return static Current object.
+     * @return static current object
      */
     public function setEmail(string $email): static
     {
@@ -74,7 +75,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Returns visual user identifier.
      *
-     * @return string User identifier.
+     * @return string user identifier
      */
     public function getUserIdentifier(): string
     {
@@ -84,7 +85,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Returns user roles.
      *
-     * @return list<string> User roles.
+     * @return list<string> user roles
      */
     public function getRoles(): array
     {
@@ -97,9 +98,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Sets user roles.
      *
-     * @param list<string> $roles User roles.
+     * @param list<string> $roles user roles
      *
-     * @return static Current object.
+     * @return static current object
      */
     public function setRoles(array $roles): static
     {
@@ -111,7 +112,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Returns hashed password.
      *
-     * @return string|null Hashed password.
+     * @return string|null hashed password
      */
     public function getPassword(): ?string
     {
@@ -121,9 +122,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Sets hashed password.
      *
-     * @param string $password Hashed password.
+     * @param string $password hashed password
      *
-     * @return static Current object.
+     * @return static current object
      */
     public function setPassword(string $password): static
     {
@@ -134,8 +135,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * Removes sensitive temporary data.
-     *
-     * @return void
      */
     #[\Deprecated]
     public function eraseCredentials(): void
