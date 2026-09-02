@@ -11,14 +11,8 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 /**
  * Tests photo controller access.
  */
-/**
- * Tests photo controller access.
- */
 final class PhotoControllerTest extends WebTestCase
 {
-    /**
-     * Tests that an anonymous user is redirected to login.
-     */
     /**
      * Tests that an anonymous user is redirected to login.
      */
