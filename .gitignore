@@ -2,9 +2,7 @@
 app/var
 app/vendor
 *.cache
-app/.env
 app/.env.dev
-app/.env.test
 app/vendor/
 app/var/
 app/.phpunit.cache/
