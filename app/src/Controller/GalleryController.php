@@ -50,9 +50,7 @@ final class GalleryController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $gallery = new Gallery();
-        $form = $this->createForm(GalleryType::class, $gallery, [
-            'method' => 'PUT',
-        ]);
+        $form = $this->createForm(GalleryType::class, $gallery);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -105,7 +103,7 @@ final class GalleryController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/{id}/edit', name: 'app_gallery_edit', methods: ['GET', 'PUT'])]
+    #[Route('/{id}/edit', name: 'app_gallery_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Gallery $gallery, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(GalleryType::class, $gallery);
